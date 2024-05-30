@@ -47,5 +47,5 @@ jobs:
            generate_release_notes: true
            prerelease: false
            draft: false
-           files: "output/SetupBlitz.exe"
-           tag_name: "v1.0.0"
+           files: "src\vs\x64\Release\BlitzSearch.dll"
+           tag_name: "main"
