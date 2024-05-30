@@ -47,5 +47,5 @@ jobs:
            generate_release_notes: true
            prerelease: false
            draft: false
-           files: "src\vs\x64\Release\BlitzSearch.dll"
+           files: "src/vs/x64/Release/BlitzSearch.dll"
            tag_name: "main"
