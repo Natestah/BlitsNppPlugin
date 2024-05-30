@@ -22,8 +22,8 @@ env:
 
 permissions:
   contents: write
-    pull-requests: write
-    repository-projects: write
+  pull-requests: write
+  repository-projects: write
 
 jobs:
   build:
