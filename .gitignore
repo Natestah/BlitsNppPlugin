@@ -1,0 +1,6 @@
+vs/
+.vs/
+.vs\
+vs\
+/vs/*
+*.tlog

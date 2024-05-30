@@ -1,0 +1,3 @@
+#define IDI_BLITZ_ICON		100
+#define IDI_BLITZ_DM_ICON		101
+#define IDR_BLITZ_BMP			102
