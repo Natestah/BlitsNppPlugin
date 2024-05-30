@@ -1,6 +1,3 @@
-vs/
 .vs/
-.vs\
-vs\
-/vs/*
+x64/
 *.tlog
