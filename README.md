@@ -9,6 +9,17 @@ Download and install the main Blitz Search from the Project Homepage:
 
 [Natestah.com](https://natestah.com)
 
+Plugins drop down navigate to the plugins folder
+![2024-05-30_07-45-50](https://github.com/Natestah/BlitsNppPlugin/assets/11800697/84c55308-b488-4398-b9b4-59787ccdf6f2)
+
+create a folder there named "BlitzSearch"
+
+From the release page here, grab the latest Zip.. Extract the BlitzSearch.dll to your NotePad++ plugin folder
+
+![2024-05-30_07-47-58](https://github.com/Natestah/BlitsNppPlugin/assets/11800697/199933d0-ba34-45d7-a987-f0f57bd0e992)
+
+## Run/Restart NotePad++
+
 Click this button to run:
 
 ![2024-05-29_18-15-03](https://github.com/Natestah/BlitsNppPlugin/assets/11800697/e244d9a1-29bf-449e-8559-3d93a2740d80)
