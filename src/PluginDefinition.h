@@ -23,8 +23,10 @@ void pluginCleanUp();
 void commandMenuInit();
 void commandMenuCleanUp();
 bool setCommand(size_t index, const TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk = NULL, bool check0nInit = false);
-void SetSearch(const char *);
+void RunBlitzIPCCommand(const char *, const wchar_t *);
 // Command functions
 void runSearchThis();
+void GetContextForSearch(char& search_string);
+void runReplaceThis();
 void visitHomepage();
 void startBlitz();

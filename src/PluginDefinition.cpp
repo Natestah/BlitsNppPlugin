@@ -52,7 +52,8 @@ void commandMenuInit()
 	blitz_search_this_sh_key._key = 0x77; // VK_F8	0x77	F8 key
 	
 	setCommand(0, TEXT("Blitz Search This"), runSearchThis, &blitz_search_this_sh_key, true);
-	setCommand(1, TEXT("Plug-in homepage"), visitHomepage, NULL, false);
+	setCommand(1, TEXT("Blitz Replace This"), runReplaceThis, NULL, false);
+	setCommand(2, TEXT("Plug-in homepage"), visitHomepage, NULL, false);
 }
 
 bool setCommand(size_t index, const TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit)
@@ -110,12 +111,27 @@ DWORD __declspec(nothrow) commDbLoadingThread(LPVOID lp)
 
 void runSearchThis()
 {
+	static char ext_str[MAX_PATH];
+	GetContextForSearch(*ext_str);
+	RunBlitzIPCCommand(ext_str, L"SET_SEARCH");
+	startBlitz();
+}
+
+void runReplaceThis()
+{
+	static char ext_str[MAX_PATH];
+	GetContextForSearch(*ext_str);
+	RunBlitzIPCCommand(ext_str, L"SET_REPLACE");
+	startBlitz();
+}
+
+void GetContextForSearch(char& search_string)
+{
 	updateScintillaHWND();
-	
 	bool wholeWord = false;
 	ui64 sel_n = m2scintilla(SCI_GETSELECTIONS); // There is always at least one selection
 	selects = (Selection*)VirtualAlloc(0, sel_n * sizeof(Selection), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-	
+
 	if (sel_n == 1)
 	{
 		selects[0].beg = m2scintilla(SCI_GETSELECTIONNSTART, 0);
@@ -130,22 +146,19 @@ void runSearchThis()
 		}
 	}
 
-	static char ext_str[MAX_PATH];
+
 	if (wholeWord)
 	{
-		ext_str[0] = '@';
-		m2scintilla(SCI_GETSELTEXT, 0, (ui64)(&ext_str[1]));
+		search_string = '@';
+		m2scintilla(SCI_GETSELTEXT, 0, (ui64)(&search_string+1));
 	}
 	else
 	{
-		m2scintilla(SCI_GETSELTEXT, 0, (ui64)ext_str);
+		m2scintilla(SCI_GETSELTEXT, 0, (ui64)(&search_string));
 	}
-
-	SetSearch(ext_str);
-	startBlitz();
 }
 
-void SetSearch(const char * search_string)
+void RunBlitzIPCCommand(const char * search_string, const wchar_t * ipcID)
 {
 	wchar_t* app_data = NULL;
 	SHGetKnownFolderPath(FOLDERID_RoamingAppData, 0, NULL, &app_data);
@@ -153,7 +166,9 @@ void SetSearch(const char * search_string)
 	wcscpy(npp_poormans_ipc, app_data);
 	wcscat(npp_poormans_ipc, L"\\NathanSilvers\\POORMANS_IPC");
 	CreateDirectoryW(npp_poormans_ipc, NULL);
-	wcscat(npp_poormans_ipc, L"\\SET_SEARCH.txt");
+	wcscat(npp_poormans_ipc, L"\\");
+	wcscat(npp_poormans_ipc, ipcID);
+	wcscat(npp_poormans_ipc, L".txt");
 	ofstream out_file;
 	out_file.open(npp_poormans_ipc);
 	out_file << search_string;
