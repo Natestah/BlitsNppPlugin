@@ -1,8 +1,8 @@
 #include <windows.h>
 #include "resource.h"
 
-#define VERSION_VALUE "1.0.0.1"
-#define VERSION_DIGITALVALUE 1, 0, 0, 1
+#define VERSION_VALUE "1.0.0.2"
+#define VERSION_DIGITALVALUE 1, 0, 0, 2
 
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION	VERSION_DIGITALVALUE
@@ -25,7 +25,7 @@ BEGIN
 			VALUE	"FileDescription",	"Runs Search-This for Blitz Search tool"
 			VALUE	"FileVersion",	VERSION_VALUE
 			VALUE	"InternalName",	"BlizSearch.dll"
-			VALUE	"LegalCopyright",	"Copyleft 2025 by Nathan Silvers"
+			VALUE	"LegalCopyright",	"Copyleft 2024 by Nathan Silvers"
 			VALUE	"OriginalFilename",	"BlizSearch.dll"
 			VALUE	"ProductName",	"Blitz Search Plugin"
 			VALUE	"ProductVersion",	VERSION_VALUE
