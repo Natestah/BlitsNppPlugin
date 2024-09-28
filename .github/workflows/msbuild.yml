@@ -48,7 +48,7 @@ jobs:
         type: 'zip'
         filename: 'BlitzSearch-v1.0.0.3-x64.zip'
         directory: 'src/vs/x64/Release'
-        exclusions: '*.git* /*node_modules/* .editorconfig'
+        exclusions: '*.git* /*node_modules/* .editorconfig *.pdb'
 
     - name: Create release and upload
       uses: softprops/action-gh-release@v1
