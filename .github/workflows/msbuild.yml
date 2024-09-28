@@ -47,6 +47,7 @@ jobs:
       with:
         type: 'zip'
         filename: 'BlitzSearch-v1.0.0.3-x64.zip'
+        directory: 'src/vs/x64/Release'
         exclusions: '*.git* /*node_modules/* .editorconfig'
 
     - name: Create release and upload
