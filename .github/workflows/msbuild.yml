@@ -40,10 +40,11 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       # run: msbuild GitSCM.vcxproj /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}" /p:PlatformToolset="v142" /target:zip
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Get release file version
       run: |
-        msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
-        # save the DLL file version for use in later steps
-        echo "DLL_VERSION=$((Get-Item .\src\vs\x64\${{env.BUILD_CONFIGURATION}}\BlitzSearch.dll).VersionInfo.FileVersion)" >> $env:GITHUB_ENV
+        echo "DLL_VERSION=$((Get-Item .\src\vs\x64\Release\BlitzSearch.dll).VersionInfo.FileVersion)" >> $env:GITHUB_ENV
 
     - name: Archive Release
       uses: thedoctor0/zip-release@0.7.6
@@ -51,9 +52,10 @@ jobs:
         type: 'zip'
         filename: 'BlitzSearch-v${{ env.DLL_VERSION }}-x64.zip'
         directory: 'src/vs/x64/Release'
-        exclusions: '*.git* /*node_modules/* .editorconfig *.pdb'
+        exclusions: '*.git* /*node_modules/* .editorconfig *.exp *.lib *.pdb'
 
     - name: Create release and upload
+      if: ${{ contains(github.ref, 'tags') }}
       uses: softprops/action-gh-release@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -62,7 +64,8 @@ jobs:
            prerelease: false
            draft: false
            files: "src/vs/x64/Release/BlitzSearch-v${{ env.DLL_VERSION }}-x64.zip"
-           tag_name: "InitialRelease"
+           tag_name: "${{ github.ref_name }}"
+           name: "BlitzSearch - ${{ github.ref_name }}"
 
     - name: SHA256
       if: env.BUILD_CONFIGURATION == 'Release'
