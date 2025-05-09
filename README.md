@@ -7,7 +7,7 @@ Blitz Search is a simple interface with the external Blitz Search Tool.
 ## To Use:
 Download and install the main Blitz Search from the Project Homepage:
 
-[Natestah.com](https://natestah.com)
+[Natestah.com](https://natestah.com/download)
 
 Plugins drop down navigate to the plugins folder
 ![2024-05-30_07-45-50](https://github.com/Natestah/BlitsNppPlugin/assets/11800697/84c55308-b488-4398-b9b4-59787ccdf6f2)
