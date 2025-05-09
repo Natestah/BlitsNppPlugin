@@ -28,5 +28,6 @@ void RunBlitzIPCCommand(const char *, const wchar_t *);
 void runSearchThis();
 void GetContextForSearch(char& search_string);
 void runReplaceThis();
-void visitHomepage();
+void visitHomePage();
+void visitDownloadPage();
 void startBlitz();

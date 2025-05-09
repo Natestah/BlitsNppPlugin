@@ -53,7 +53,7 @@ void commandMenuInit()
 	
 	setCommand(0, TEXT("Blitz Search This"), runSearchThis, &blitz_search_this_sh_key, true);
 	setCommand(1, TEXT("Blitz Replace This"), runReplaceThis, NULL, false);
-	setCommand(2, TEXT("Plug-in homepage"), visitHomepage, NULL, false);
+	setCommand(2, TEXT("Plug-in homepage"), visitHomePage, NULL, false);
 }
 
 bool setCommand(size_t index, const TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit)
@@ -175,7 +175,22 @@ void RunBlitzIPCCommand(const char * search_string, const wchar_t * ipcID)
 	out_file.close();
 }
 
-void visitHomepage()
+void visitHomePage()
+{
+	static const char* link = "https://natestah.com/blitz-search";
+
+	ShellExecuteA( // =============================================================================
+		NULL,				//  [I|O]  Handle to parent window that will show error or UI messages
+		"open",				//  [I|O]  Verb string -> open|edit|explore|find|open|print|runas|NULL(def)
+		link,				//    [I]  File or object that the verb is beeing executed on
+		NULL,				//  [I|O]  Cmd arguments to pass to the file, if it is exe file
+		NULL,				//  [I|O]  Default working directory of the action NULL -> current dir
+		SW_SHOWNORMAL);		//    [I]  Parameter that sets default nCmdShow status of the window
+	// ============================================================================================
+}
+
+
+void visitDownloadPage()
 {
 	static const char* link = "https://natestah.com/download";
 
@@ -189,7 +204,6 @@ void visitHomepage()
 	// ============================================================================================
 }
 
-
 void startBlitz()
 {
 	wchar_t* app_data = NULL;
@@ -200,7 +214,13 @@ void startBlitz()
 
 	if (!PathFileExistsW(npp_appdata_lang))
 	{
-		visitHomepage();
+		std::wstring error_msg(npp_appdata_lang);
+		error_msg += L" could not be found!\r\n\r\n";
+		error_msg += L"Install Blitz.exe from https://natestah.com/download";
+		if (MessageBoxW(nppData._nppHandle, error_msg.c_str(), NPP_PLUGIN_NAME, MB_ICONERROR | MB_OKCANCEL) == IDOK)
+		{
+			visitDownloadPage();
+		}
 		return;
 	}
 
