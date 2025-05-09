@@ -163,12 +163,12 @@ void RunBlitzIPCCommand(const char * search_string, const wchar_t * ipcID)
 	wchar_t* app_data = NULL;
 	SHGetKnownFolderPath(FOLDERID_RoamingAppData, 0, NULL, &app_data);
 	wchar_t npp_poormans_ipc[MAX_PATH];
-	wcscpy(npp_poormans_ipc, app_data);
-	wcscat(npp_poormans_ipc, L"\\NathanSilvers\\POORMANS_IPC");
+	wcscpy_s(npp_poormans_ipc, app_data);
+	wcscat_s(npp_poormans_ipc, L"\\NathanSilvers\\POORMANS_IPC");
 	CreateDirectoryW(npp_poormans_ipc, NULL);
-	wcscat(npp_poormans_ipc, L"\\");
-	wcscat(npp_poormans_ipc, ipcID);
-	wcscat(npp_poormans_ipc, L".txt");
+	wcscat_s(npp_poormans_ipc, L"\\");
+	wcscat_s(npp_poormans_ipc, ipcID);
+	wcscat_s(npp_poormans_ipc, L".txt");
 	ofstream out_file;
 	out_file.open(npp_poormans_ipc);
 	out_file << search_string;
@@ -177,7 +177,7 @@ void RunBlitzIPCCommand(const char * search_string, const wchar_t * ipcID)
 
 void visitHomepage()
 {
-	static const char* link = "https://natestah.com";
+	static const char* link = "https://natestah.com/download";
 
 	ShellExecuteA( // =============================================================================
 		NULL,				//  [I|O]  Handle to parent window that will show error or UI messages
@@ -195,8 +195,8 @@ void startBlitz()
 	wchar_t* app_data = NULL;
 	SHGetKnownFolderPath(FOLDERID_ProgramFilesX64, 0, NULL, &app_data);
 	wchar_t npp_appdata_lang[MAX_PATH];
-	wcscpy(npp_appdata_lang, app_data);
-	wcscat(npp_appdata_lang, L"\\Blitz\\Blitz.exe");
+	wcscpy_s(npp_appdata_lang, app_data);
+	wcscat_s(npp_appdata_lang, L"\\Blitz\\Blitz.exe");
 
 	if (!PathFileExistsW(npp_appdata_lang))
 	{

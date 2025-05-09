@@ -15,7 +15,7 @@ typedef signed char i8;
 
 // Notepad++ data
 const TCHAR NPP_PLUGIN_NAME[] = TEXT("Blitz Search");
-const int nbFunc = 2;
+const int nbFunc = 3;
 
 // Utility functions
 void pluginInit(HANDLE hModule);
