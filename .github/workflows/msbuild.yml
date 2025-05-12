@@ -55,7 +55,7 @@ jobs:
         exclusions: '*.git* /*node_modules/* .editorconfig *.exp *.lib *.pdb'
 
     - name: Create release and upload
-      if: ${{ contains(github.ref, 'tags') }}
+      if: ${{ github.event_name == 'push' }}
       uses: softprops/action-gh-release@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -64,8 +64,8 @@ jobs:
            prerelease: false
            draft: false
            files: "src/vs/x64/Release/BlitzSearch-v${{ env.DLL_VERSION }}-x64.zip"
-           tag_name: "${{ github.ref_name }}"
-           name: "BlitzSearch - ${{ github.ref_name }}"
+           tag_name: "v${{ env.DLL_VERSION }}"
+           name: "BlitzSearch - v${{ env.DLL_VERSION }}"
 
     - name: SHA256
       if: env.BUILD_CONFIGURATION == 'Release'
